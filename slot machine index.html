@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Slot Machine</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffdde1;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #ff4d6d;
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .reel {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border: 5px solid #ff4d6d;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 50px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s ease-in-out;
+        }
+        .spin-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .spin-button:hover {
+            background-color: #ff1e50;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #d10041;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>💖 Valentine's Slot Machine 💖</h1>
+    <div class="slot-machine">
+        <div class="reel" id="reel1">❤️</div>
+        <div class="reel" id="reel2">💌</div>
+        <div class="reel" id="reel3">💍</div>
+    </div>
+    <button class="spin-button" onclick="spin()">Spin 💘</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        const symbols = ['❤️', '💌', '💍', '🍫', '🌹', '💕', '🎁'];
+
+        function spin() {
+            let reels = document.querySelectorAll('.reel');
+            let results = [];
+
+            reels.forEach((reel, index) => {
+                let randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                results.push(randomSymbol);
+                
+                // Spinning animation
+                reel.style.transform = 'rotateX(360deg)';
+                
+                setTimeout(() => {
+                    reel.textContent = randomSymbol;
+                    reel.style.transform = 'rotateX(0deg)';
+                }, 1000);
+            });
+
+            setTimeout(() => {
+                checkWin(results);
+            }, 1100);
+        }
+
+        function checkWin(results) {
+            let message = "";
+            if (results[0] === results[1] && results[1] === results[2]) {
+                message = "🎉 Jackpot! You won! 🎉";
+            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                message = "💖 Almost there! Try again!";
+            } else {
+                message = "💔 No match! Spin again!";
+            }
+            document.getElementById('result').textContent = message;
+        }
+    </script>
+
+</body>
+</html>
